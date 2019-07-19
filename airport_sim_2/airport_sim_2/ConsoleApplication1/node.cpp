@@ -29,7 +29,7 @@ bool node::isvacant() {
 	return this->state;
 }
 	else {
-		std::cout << "isvacant::empty node!! \n";
+		std::cout << "\nisvacant::node is empty!!";
 		return 0;
 	}
 }

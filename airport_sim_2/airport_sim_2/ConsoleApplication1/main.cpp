@@ -6,8 +6,6 @@
 #include "graph.h"
 #include "airport.h"
 
-float total_simulation_time = 100;
-
 int main()
 {
 	int N_total = 5;

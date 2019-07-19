@@ -93,6 +93,7 @@ void aircraft::free(float time) {
 		freedplane++;
 		std::cout << "\n plane freed : " << freedplane<<" at time = "<<time<<" minutes";
 		freedtime = time;
+		std::cout << "\n\n\n\n\n\n\n\n\n\n\n\n";
 	}
 	else {
 		std::cout << " \ndo nothing";
@@ -100,10 +101,13 @@ void aircraft::free(float time) {
 }
 
 void aircraft::wait(float time) {
-	if (time >= minwaittime)
+	if (time >= minwaittime) {
 		waittime++;
+		std::cout << " \nplane " << ID << " waiting at ";
+		position->show_index();
+	}
 	else{
-		std::cout << "\n standing at ";
+		std::cout <<" \nplane "<<ID<< " standing at ";
 		position->show_index();
 	}
 

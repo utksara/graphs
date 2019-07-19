@@ -24,7 +24,7 @@ int calculate_min_gates(int N_total, int BT, int RT) {
 	
 	float init_freedtime = 1;
 	float time = 0;
-	float total_simulation_time = 200;
+	float total_simulation_time = 400;
 
 	int* IDs = new int[N_gates];
 	int* IDa = new int[N_air];
@@ -57,9 +57,9 @@ int calculate_min_gates(int N_total, int BT, int RT) {
 					update_all(planes_waiting, N_gates, time);
 					update_all(planes_air, N_air, time);
 					time++;
-				//	show_all(planes_waiting, N_queue);
-					show_all(planes_air, N_air);
-				//	show_all(planes_standing, N_gates);
+				//	show_all(planes_standing, N_queue);
+				//	show_all(planes_waiting, N_gates);
+				//	show_all(planes_air, N_air);
 
 					std::cout << "\n freed time: " << aircraft::freedtime;
 					std::cout << "\n int time: " << init_freedtime;
@@ -74,8 +74,8 @@ int calculate_min_gates(int N_total, int BT, int RT) {
 					init_freedtime = aircraft::freedtime;
 				}
 		}
-			
-			delete planes_air;
+			std::cout << "\n";
+	;		delete planes_air;
 			//delete planes_standing;
 
 	}
