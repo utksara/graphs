@@ -15,21 +15,22 @@ node::node() : duration(0) {
 	this->index = 0;	
 }
 
-node::node(int index, float Duration, int vacancy) : duration(Duration) {
+node::node(int index, float Duration, int &vacancy) : duration(Duration) {
 	this->index = index;
-	this->vacancy = vacancy;
+	(this->vacancy) = &vacancy;
 }
 void node::update_state() {
-	this->state = (this->vacancy > 0) ? 1 : 0;
+	this->state = (*(this->vacancy) > 0) ? 1 : 0;
 }
 
 bool node::isvacant() {
+
 	if (this != nullptr){
 		update_state();
 	return this->state;
 }
 	else {
-		std::cout << "isvacant::empty node!! \n";
+		//std::cout << "\nisvacant::node is empty!!";
 		return 0;
 	}
 }
@@ -70,17 +71,16 @@ void node::show_network() {
 
 void node::show_index() {
 	if(this!=nullptr)
-		std::cout<<(index);
+		std::cout<<"\n            node : "<<(index);
 	else
 		std::cout << "show_index::empty node!! \n";
 }
 
 node* node::goto_next_node() {
-	node* nextnode = this;
 	if (this != nullptr) {
 		if (this->isterminal()) {
-			std::cout << "goto_next_node::terminal node!! \n ";
-			return nextnode;
+			std::cout << "\ngoto_next_node::terminal node!!  ";
+			return this;
 		}
 		else {
 			if (this->next1->isvacant())
@@ -89,29 +89,28 @@ node* node::goto_next_node() {
 				return this->next2;
 			else {
 				return this;
-				std::cout << "you have to wait";
 			}
 		}
 	}
 	else {
-		std::cout << "goto_next_node::empty node";
-		return nextnode;
+		std::cout << "\ngoto_next_node::empty node!!";
+		return this;
 	}
 }
 
 
 void node::occupy() {
-	vacancy = vacancy-1;
-	std::cout << "\nposition occupied " << index << " vacancy now "<< vacancy;
+	*vacancy = *vacancy-1;
+	std::cout << "\nposition occupied " << index << " vacancy now "<< *vacancy;
 	this->update_state();
 };
 
 void node::reset() {
-	vacancy = vacancy + 1;
-	std::cout << "\nposition vacant " << index << " vacancy now " << vacancy;
+	*vacancy = *vacancy + 1;
+	std::cout << "\nposition vacant " << index << " vacancy now " << *vacancy;
 	this->update_state();
 }
 
 void node::change_vacancy(int N) {
-	this->vacancy = N;
+	*(this->vacancy) = N;
 }

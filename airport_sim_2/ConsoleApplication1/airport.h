@@ -2,6 +2,11 @@
 
 #include"graph.h"
 
+/*static int runway_vacancy;
+float RT;
+float BT;
+float TT;*/
+
 class aircraft {
 	int ID;
 	int freed = 0;
@@ -22,10 +27,11 @@ public:
 	void free(float time);
 	void wait(float time);
 	void show_ID();
+	void alter_position(node* n);
 };
 
 void show_all(aircraft arr[], int numberofplane);
 void goto_all(aircraft arr[], int numberofplane );
 void update_all(aircraft arr[], int numberofplane, float time );
-int calculate_min_gates(int N_total, int BT, int RT);
+int calculate_min_gates(int N_total, int BT, int RT, int RW);
 aircraft* create_new_aircrafts(int ID[], int N_total, node* N); // create new plane at postion N

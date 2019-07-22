@@ -4,13 +4,13 @@ class node {
 	bool state;
 	node* next1 = NULL;
 	node* next2 = NULL;
-	int vacancy;
+	int *vacancy;
 
 public:
 	const float duration;
 
 	node();
-	node(int index, float Duration, int vacancy);
+	node(int index, float Duration, int &vacancy);
 
 	void show_index();
 	void show_network();
