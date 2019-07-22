@@ -2,6 +2,11 @@
 
 #include"graph.h"
 
+/*static int runway_vacancy;
+float RT;
+float BT;
+float TT;*/
+
 class aircraft {
 	int ID;
 	int freed = 0;

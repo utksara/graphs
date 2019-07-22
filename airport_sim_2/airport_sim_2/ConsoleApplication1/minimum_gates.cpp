@@ -6,79 +6,101 @@
 
 int calculate_min_gates(int N_total, int BT, int RT) {
 
-	node* start = new node(0, RT, 10);
-	node* q1 = new node(1, 5, 100);
-	node* g = new node(2, BT, 1);
-	node* q2 = new node(3, 5, 100);
-	node* end = new node(4, RT, 10);
+	int* Gates_array = new int[N_total - 1];
 
-	start->link(q1);
-	q1->link(g);
-	g->link(q2);
-	q2->link(end);
+	for (int N_air = 1; N_air < N_total; N_air++) {
+		aircraft::freedplane = 0;
+		std::cout << "\nHi dear : " << N_air << " in air ";
 
-	int N_air = 1;
-	int N_queue = N_total - 1;
-	int N_gates = 1;
-	int optimum_gates = 1;
-	
-	float init_freedtime = 1;
-	float time = 0;
-	float total_simulation_time = 400;
+		int optimum_gates = 1;
 
-	int* IDs = new int[N_gates];
-	int* IDa = new int[N_air];
-	int* IDw = new int[N_queue];
+		int N_queue = N_total - N_air;
 
-	int* Gates_array = new int[N_total];
+		int* IDa = new int[N_air];
+		int* IDw = new int[N_queue];
 
-	for (int i = 0; i < N_queue; i++) {
-		IDw[i] = 100+i;
-	}
-	for (int i = 0; i < N_gates; i++) {
-		IDs[i] = 200 + i;
-	}
-	for (int i = 0; i < N_air; i++) {
-		IDa[i] = 300 + i;
-	}
+		for (int i = 0; i < N_queue; i++) {
+				IDw[i] = 100 + i;
+		}
 
-		for (N_air = 1; N_air < N_total; N_air++) {
-			N_queue = N_total - N_air;
-			aircraft* planes_air = create_new_aircrafts(IDa, N_air, start);
-			aircraft* planes_standing = create_new_aircrafts(IDw, N_queue, q1);
+		for (int i = 0; i < N_air; i++) {
+				IDa[i] = 300 + i;
+		}
+		float init_freedtime = -1;
+			for (int N_gates = 1; N_gates <= N_total; N_gates++) {
 
-			for (N_gates = 1; N_gates <= N_total; N_gates++) {
+				node* start = new node(0, 0, 10);
+				node* q1 = new node(1, 5, 100);
+				node* g = new node(2, BT, 1);
+				node* q2 = new node(3, 5, 100);
+				node* end = new node(4, 0, 10);
+
+				start->link(q1);
+				q1->link(g);
+				g->link(q2);
+				q2->link(end);
+
+				aircraft::freedplane = 0;
+
+				std::cout << "\n\n Starting run for " << N_gates << " no. of gates :\n";
+
+				aircraft* planes_air = create_new_aircrafts(IDa, N_air, start);
+				aircraft* planes_standing = create_new_aircrafts(IDw, N_queue, q1);
+				int* IDs = new int[N_gates];
+
 				g->change_vacancy(N_gates);
-				aircraft* planes_waiting = create_new_aircrafts(IDs, N_gates, g);
+				for (int i = 0; i < N_gates; i++) {
+					IDs[i] = 200 + i;
+				}
+
+				if (N_gates < N_queue)
+					for (int i = 0; i < N_gates; i++) {
+						planes_standing[i].alter_position(g);
+						//q1->reset();
+					}
+				else
+					for (int i = 0; i < N_queue; i++) {
+						planes_standing[i].alter_position(g);
+						//q1->reset();
+					}
+
+				float time = 0;
+				float total_simulation_time = 110;
 
 				while (time < total_simulation_time) {
 
+					//std::cout << "\n\nsimulation starts : tick "<<time<<" minutes\n";
+
 					update_all(planes_standing, N_queue, time);
-					update_all(planes_waiting, N_gates, time);
 					update_all(planes_air, N_air, time);
 					time++;
-				//	show_all(planes_standing, N_queue);
-				//	show_all(planes_waiting, N_gates);
-				//	show_all(planes_air, N_air);
-
-					std::cout << "\n freed time: " << aircraft::freedtime;
-					std::cout << "\n int time: " << init_freedtime;
-
-					if (aircraft::freedtime == init_freedtime && aircraft::freedplane == N_total) {
-						optimum_gates = N_gates-1;
-						Gates_array[N_air] = optimum_gates;
-						std::cout << " \n Hi H \n ";
-						break;
+					if (aircraft::freedplane == N_total) {
+						std::cout << "\nfreedplanes : " << aircraft::freedplane;
+						time = total_simulation_time;
 					}
 
-					init_freedtime = aircraft::freedtime;
 				}
-		}
-			std::cout << "\n";
-	;		delete planes_air;
-			//delete planes_standing;
 
+				std::cout << "\n\n\n\n\n";
+				delete planes_air;
+				delete planes_standing;
+
+				delete start;
+				delete q1;
+				delete g;
+				delete q2;
+				delete end;
+
+				if (init_freedtime == aircraft::freedtime) {
+					Gates_array[N_air - 1] = N_gates;
+					N_gates = N_total;
+					std::cout << "\n	big boobies" ;
+				}
+				else
+					init_freedtime = aircraft::freedtime;
+			}
+			std::cout << "\n\n\n..............\n\n\n";
 	}
 
-		return *(std::max_element(Gates_array, Gates_array + N_total));
+	return *(std::max_element(Gates_array, Gates_array + N_total-1));
 }

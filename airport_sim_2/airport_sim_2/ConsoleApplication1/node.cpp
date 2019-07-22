@@ -24,12 +24,13 @@ void node::update_state() {
 }
 
 bool node::isvacant() {
+
 	if (this != nullptr){
 		update_state();
 	return this->state;
 }
 	else {
-		std::cout << "\nisvacant::node is empty!!";
+		//std::cout << "\nisvacant::node is empty!!";
 		return 0;
 	}
 }
@@ -70,17 +71,16 @@ void node::show_network() {
 
 void node::show_index() {
 	if(this!=nullptr)
-		std::cout<<(index);
+		std::cout<<"\n            node : "<<(index);
 	else
 		std::cout << "show_index::empty node!! \n";
 }
 
 node* node::goto_next_node() {
-	node* nextnode = this;
 	if (this != nullptr) {
 		if (this->isterminal()) {
-			std::cout << "goto_next_node::terminal node!! \n ";
-			return nextnode;
+			std::cout << "\ngoto_next_node::terminal node!!  ";
+			return this;
 		}
 		else {
 			if (this->next1->isvacant())
@@ -89,13 +89,12 @@ node* node::goto_next_node() {
 				return this->next2;
 			else {
 				return this;
-				std::cout << "you have to wait";
 			}
 		}
 	}
 	else {
-		std::cout << "goto_next_node::empty node";
-		return nextnode;
+		std::cout << "\ngoto_next_node::empty node!!";
+		return this;
 	}
 }
 

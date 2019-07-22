@@ -11,7 +11,10 @@ aircraft::aircraft(node* n) {
 }
 
 void aircraft::alter_position(node* n) {
+	this->position->reset();
+	std::cout << " alter";
 	this->position = n;
+	n->occupy();
 }
 
 
@@ -39,6 +42,7 @@ void aircraft::goto_next_position() {
 	node* temp = this->position;
 	this->position = this->position->goto_next_node();
 	temp->reset();
+	std::cout << " goto";
 	this->position->occupy();
 }
 
@@ -89,26 +93,27 @@ void update_all(aircraft arr[], int numberofplane, float time) {
 void aircraft::free(float time) {
 	if (this->freed != 1) {
 		position->reset();
+		std::cout << " free";
 		freed = 1;
 		freedplane++;
 		std::cout << "\n plane freed : " << freedplane<<" at time = "<<time<<" minutes";
 		freedtime = time;
-		std::cout << "\n\n\n\n\n\n\n\n\n\n\n\n";
+		std::cout << "\n\n\n";
 	}
 	else {
-		std::cout << " \ndo nothing";
+	//	std::cout << " \n plane "<<ID<<" flew already";
 	}
 }
 
 void aircraft::wait(float time) {
 	if (time >= minwaittime) {
 		waittime++;
-		std::cout << " \nplane " << ID << " waiting at ";
-		position->show_index();
+	//	std::cout << " \nplane " << ID << " waiting at ";
+	//	position->show_index();
 	}
 	else{
-		std::cout <<" \nplane "<<ID<< " standing at ";
-		position->show_index();
+	//	std::cout <<" \nplane "<<ID<< " standing at ";
+	//	position->show_index();
 	}
 
 }
