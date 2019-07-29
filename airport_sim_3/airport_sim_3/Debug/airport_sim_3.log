@@ -1,0 +1,7 @@
+﻿  minimum_gates.cpp
+c:\users\vqmmx3\documents\visual studio 2017\projects\airport_sim_3\airport_sim_3\minimum_gates.cpp(48): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\vqmmx3\documents\visual studio 2017\projects\airport_sim_3\airport_sim_3\minimum_gates.cpp(50): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\vqmmx3\documents\visual studio 2017\projects\airport_sim_3\airport_sim_3\minimum_gates.cpp(52): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\vqmmx3\documents\visual studio 2017\projects\airport_sim_3\airport_sim_3\minimum_gates.cpp(119): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+  airport_sim_3.vcxproj -> C:\Users\vqmmx3\documents\visual studio 2017\Projects\airport_sim_3\Debug\airport_sim_3.exe
+  airport_sim_3.vcxproj -> C:\Users\vqmmx3\documents\visual studio 2017\Projects\airport_sim_3\Debug\airport_sim_3.pdb (Partial PDB)
